@@ -1,7 +1,6 @@
 package gotools
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -42,7 +41,6 @@ func (t *Tools) ReadCSV(src string) ([]byte, error) {
 	if err != nil {
 		t.ErrorLog.Println(err.Error())
 	}
-	fmt.Println(IsOfType(src, "csv"))
 	return data, nil
 
 }
