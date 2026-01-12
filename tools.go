@@ -34,9 +34,13 @@ func New() Tools {
 }
 
 func (t *Tools) ReadCSV(src string) ([]byte, error) {
+	if !IsOfType(src, "csv") {
+		t.ErrorLog.Println("Not CSV")
+		return nil, nil
+	}
 	data, err := os.ReadFile(src)
 	if err != nil {
-		t.ErrorLog.Println()
+		t.ErrorLog.Println(err.Error())
 	}
 	fmt.Println(IsOfType(src, "csv"))
 	return data, nil
