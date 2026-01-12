@@ -3,8 +3,8 @@ package gotools
 import (
 	"fmt"
 	"log"
-	"net/http"
 	"os"
+	"path/filepath"
 )
 
 // randomStringSource is the source for generating random strings.
@@ -34,27 +34,15 @@ func New() Tools {
 }
 
 func (t *Tools) ReadCSV(src string) ([]byte, error) {
-	data, err := os.Open(src)
+	data, err := os.ReadFile(src)
 	if err != nil {
 		t.ErrorLog.Println()
 	}
-	contentType, err := GetFileContentType(data)
-	fmt.Println(contentType)
-	return nil, nil
+	fmt.Println(IsOfType(src, "csv"))
+	return data, nil
 
 }
 
-func GetFileContentType(ouput *os.File) (string, error) {
-
-	buf := make([]byte, 512)
-
-	_, err := ouput.Read(buf)
-
-	if err != nil {
-		return "", err
-	}
-
-	contentType := http.DetectContentType(buf)
-
-	return contentType, nil
+func IsOfType(name string, ftype string) bool {
+	return filepath.Ext(name) == "."+ftype
 }
