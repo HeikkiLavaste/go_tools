@@ -1,6 +1,7 @@
 package gotools
 
 import (
+	"encoding/json"
 	"log"
 	"os"
 	"path/filepath"
@@ -42,6 +43,11 @@ func (t *Tools) ReadCSV(src string) ([]byte, error) {
 		t.ErrorLog.Println(err.Error())
 	}
 	return data, nil
+
+}
+
+func (t *Tools) TextFsmToJSON(src []map[string]interface{}) ([]byte, error) {
+	return json.Marshal(src)
 
 }
 
